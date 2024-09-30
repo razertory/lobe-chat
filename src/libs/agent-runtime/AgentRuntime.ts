@@ -14,6 +14,7 @@ import { LobeFireworksAI } from './fireworksai';
 import { LobeGithubAI } from './github';
 import { LobeGoogleAI } from './google';
 import { LobeGroq } from './groq';
+import { LobeHunyuanAI } from './hunyuan';
 import { LobeMinimaxAI } from './minimax';
 import { LobeMistralAI } from './mistral';
 import { LobeMoonshotAI } from './moonshot';
@@ -35,6 +36,7 @@ import {
   EmbeddingsPayload,
   ModelProvider,
   TextToImagePayload,
+  TextToSpeechPayload,
 } from './types';
 import { LobeUpstageAI } from './upstage';
 import { LobeZeroOneAI } from './zeroone';
@@ -97,6 +99,9 @@ class AgentRuntime {
   async embeddings(payload: EmbeddingsPayload, options?: EmbeddingsOptions) {
     return this._runtime.embeddings?.(payload, options);
   }
+  async textToSpeech(payload: TextToSpeechPayload, options?: EmbeddingsOptions) {
+    return this._runtime.textToSpeech?.(payload, options);
+  }
 
   /**
    * @description Initialize the runtime with the provider and the options
@@ -129,6 +134,7 @@ class AgentRuntime {
       github: Partial<ClientOptions>;
       google: { apiKey?: string; baseURL?: string };
       groq: Partial<ClientOptions>;
+      hunyuan: Partial<ClientOptions>;
       minimax: Partial<ClientOptions>;
       mistral: Partial<ClientOptions>;
       moonshot: Partial<ClientOptions>;
@@ -294,6 +300,11 @@ class AgentRuntime {
 
       case ModelProvider.Ai21: {
         runtimeModel = new LobeAi21AI(params.ai21);
+        break;
+      }
+
+      case ModelProvider.Hunyuan: {
+        runtimeModel = new LobeHunyuanAI(params.hunyuan);
         break;
       }
     }
