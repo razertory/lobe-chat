@@ -2,7 +2,7 @@ import { count } from 'drizzle-orm';
 import { and, asc, desc, eq, gte, inArray, isNull, like, lt } from 'drizzle-orm/expressions';
 
 import { serverDB } from '@/database/server/core/db';
-import { idGenerator } from '@/database/server/utils/idGenerator';
+import { idGenerator } from '@/database/utils/idGenerator';
 import { getFullFileUrl } from '@/server/utils/files';
 import {
   ChatFileItem,
@@ -28,7 +28,7 @@ import {
   messageTranslates,
   messages,
   messagesFiles,
-} from '../schemas/lobechat';
+} from '../../schemas';
 
 export interface QueryMessageParams {
   current?: number;
@@ -69,6 +69,7 @@ export class MessageModel {
         updatedAt: messages.updatedAt,
 
         parentId: messages.parentId,
+        threadId: messages.threadId,
 
         tools: messages.tools,
         tool_call_id: messagePlugins.toolCallId,
