@@ -72,7 +72,7 @@ const Page = async (props: Props) => {
   const identifier = decodeURIComponent(slugs.join('/'));
   const { t, locale } = await translation('metadata', searchParams?.hl);
   const { t: td } = await translation('models', searchParams?.hl);
-  const mobile = isMobileDevice();
+  const mobile = await isMobileDevice();
 
   const discoverService = new DiscoverService();
   const data = await discoverService.getModelById(locale, identifier);
@@ -105,7 +105,7 @@ const Page = async (props: Props) => {
         actions={<Actions data={data} identifier={identifier} providerData={providerData} />}
         header={<Header data={data} identifier={identifier} mobile={mobile} />}
         mobile={mobile}
-        sidebar={<InfoSidebar data={data} identifier={identifier} mobile={mobile} />}
+        sidebar={<InfoSidebar data={data} identifier={identifier} />}
         /* ↓ cloud slot ↓ */
 
         /* ↑ cloud slot ↑ */

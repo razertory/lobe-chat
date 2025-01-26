@@ -64,7 +64,7 @@ const Page = async (props: DiscoverPageProps) => {
 
   const { slug: identifier } = params;
   const { t, locale } = await translation('metadata', searchParams?.hl);
-  const mobile = isMobileDevice();
+  const mobile = await isMobileDevice();
 
   const discoverService = new DiscoverService();
   const data = await discoverService.getPluginById(locale, identifier, true);
@@ -91,7 +91,7 @@ const Page = async (props: DiscoverPageProps) => {
         actions={<Actions data={data} identifier={identifier} />}
         header={<Header data={data} identifier={identifier} mobile={mobile} />}
         mobile={mobile}
-        sidebar={<InfoSidebar data={data} identifier={identifier} mobile={mobile} />}
+        sidebar={<InfoSidebar data={data} identifier={identifier} />}
         /* ↓ cloud slot ↓ */
 
         /* ↑ cloud slot ↑ */
